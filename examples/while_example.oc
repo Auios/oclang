@@ -1,0 +1,17 @@
+// while_example.oc - Demonstrates while loop
+import("../lib/stdlib.oc", [process]);
+
+function main(): int {
+  let count: int = 0;
+
+  process.write(1, "Count to 5:\n");
+
+  while (count < 5) {
+    process.write(1, `  ${count}\n`);
+    count++;
+  }
+
+  process.write(1, "Done.\n");
+
+  return 0;
+}

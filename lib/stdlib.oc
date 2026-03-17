@@ -1,0 +1,222 @@
+// stdlib.oc - Standard library modules (std.process, std.os)
+// Import with: import("lib/stdlib.oc", [process, os]);
+//
+// process._write_string(handle, ptr, len) - handle: -10=stdin, -11=stdout, -12=stderr
+// process._write_int(handle, value) - value in edx, handle in ecx
+// process._write_float(handle, value) - value in xmm0, handle in ecx; prints e.g. 5.14
+// These are called by the compiler when lowering process.write(); not for direct use.
+
+module process {
+  const stdin: int = 0;
+  const stdout: int = 1;
+  const stderr: int = 2;
+  const args: int = 0;
+  const env: int = 0;
+
+  function _write_string(handle: int, ptr: ptr<byte>, len: int): int {
+    __asm {
+      mov [rel _tmp_rdx], rdx
+      mov [rel _tmp_r8], r8
+      sub rsp, 32
+      call GetStdHandle
+      mov [rel _stdout], rax
+      add rsp, 32
+      mov rdx, [rel _tmp_rdx]
+      mov r8, [rel _tmp_r8]
+      sub rsp, 48
+      mov rcx, [rel _stdout]
+      lea r9, [rel _written]
+      mov qword [rsp + 32], 0
+      call WriteFile
+      add rsp, 48
+    }
+    return 0;
+  }
+
+  function _write_int(handle: int, value: int): int {
+    __asm {
+      mov [rel _tmp_handle], rcx
+      mov eax, edx
+      test eax, eax
+      jnz .itob_pos
+      mov byte [rel _itobuf], 48
+      mov r8, 1
+      lea rdx, [rel _itobuf]
+      jmp .itob_wrf
+.itob_pos:
+      xor edi, edi
+      cmp eax, 0
+      jge .itob_div
+      neg eax
+      mov edi, 1
+.itob_div:
+      lea rsi, [rel _itobuf + 11]
+      mov ecx, 10
+.itob_loop:
+      xor edx, edx
+      div ecx
+      add dl, 48
+      dec rsi
+      mov [rsi], dl
+      test eax, eax
+      jnz .itob_loop
+      test edi, edi
+      jz .itob_ptr
+      dec rsi
+      mov byte [rsi], 45
+.itob_ptr:
+      lea r8, [rel _itobuf + 12]
+      sub r8, rsi
+      mov rdx, rsi
+.itob_wrf:
+      mov [rel _tmp_rdx], rdx
+      mov [rel _tmp_r8], r8
+      sub rsp, 32
+      mov ecx, [rel _tmp_handle]
+      call GetStdHandle
+      mov [rel _stdout], rax
+      add rsp, 32
+      mov rdx, [rel _tmp_rdx]
+      mov r8, [rel _tmp_r8]
+      sub rsp, 48
+      mov rcx, [rel _stdout]
+      lea r9, [rel _written]
+      mov qword [rsp + 32], 0
+      call WriteFile
+      add rsp, 48
+    }
+    return 0;
+  }
+
+  function _write_float(handle: int, value: double): int {
+    __asm {
+      mov [rel _tmp_handle], rcx
+      movsd [rel _tmp_xmm0], xmm0
+      sub rsp, 32
+      mov ecx, [rel _tmp_handle]
+      call GetStdHandle
+      mov [rel _stdout], rax
+      add rsp, 32
+      movsd xmm0, [rel _tmp_xmm0]
+      cvttsd2si eax, xmm0
+      xor edi, edi
+      cmp eax, 0
+      jge .ftob_int
+      neg eax
+      mov edi, 1
+.ftob_int:
+      lea rsi, [rel _ftobuf + 11]
+      mov ecx, 10
+.ftob_iloop:
+      xor edx, edx
+      div ecx
+      add dl, 48
+      dec rsi
+      mov [rsi], dl
+      test eax, eax
+      jnz .ftob_iloop
+      test edi, edi
+      jz .ftob_dot
+      dec rsi
+      mov byte [rsi], 45
+.ftob_dot:
+      mov rbx, rsi
+      mov byte [rel _ftobuf + 12], 46
+      movsd xmm0, [rel _tmp_xmm0]
+      cvttsd2si eax, xmm0
+      cvtsi2sd xmm1, eax
+      subsd xmm0, xmm1
+      andpd xmm0, [rel _flt_abs_mask]
+      mulsd xmm0, [rel _flt_100]
+      cvttsd2si eax, xmm0
+      cmp eax, 100
+      jl .ftob_frac_ok
+      mov eax, 99
+.ftob_frac_ok:
+      xor edx, edx
+      mov ecx, 10
+      div ecx
+      add al, 48
+      add dl, 48
+      mov [rel _ftobuf + 13], al
+      mov [rel _ftobuf + 14], dl
+      lea r8, [rel _ftobuf + 15]
+      sub r8, rbx
+      mov rdx, rbx
+      mov [rel _tmp_rdx], rdx
+      mov [rel _tmp_r8], r8
+      sub rsp, 32
+      mov ecx, [rel _tmp_handle]
+      call GetStdHandle
+      mov [rel _stdout], rax
+      add rsp, 32
+      mov rdx, [rel _tmp_rdx]
+      mov r8, [rel _tmp_r8]
+      sub rsp, 48
+      mov rcx, [rel _stdout]
+      lea r9, [rel _written]
+      mov qword [rsp + 32], 0
+      call WriteFile
+      add rsp, 48
+    }
+    return 0;
+  }
+
+  function write(fd: int, msg: int): int {
+    return 0;
+  }
+
+  function cwd(): int {
+    return 0;
+  }
+
+  function chdir(path: int): int {
+    return 0;
+  }
+
+  function exit(code: int): int {
+    return 0;
+  }
+}
+
+module os {
+  function name(): int {
+    return 0;
+  }
+
+  function arch(): int {
+    return 0;
+  }
+
+  function cpuCount(): int {
+    return 0;
+  }
+
+  function pageSize(): int {
+    return 0;
+  }
+
+  function hostname(): int {
+    return 0;
+  }
+
+  function sleep(ms: int): int {
+    return 0;
+  }
+
+  function spawn(path: int): int {
+    return 0;
+  }
+
+  function kill(pid: int): int {
+    return 0;
+  }
+
+  function tempDir(): int {
+    return 0;
+  }
+
+  function homeDir(): int {
+    return 0;
+  }
+}

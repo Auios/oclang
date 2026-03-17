@@ -1,0 +1,15 @@
+{
+  "name": "oclang",
+  "version": "0.1.0",
+  "exports": "./src/main.ts",
+  "tasks": {
+    "test": "deno run -A devtools/test.ts",
+    "occ": "deno run -A src/main.ts",
+    "occ:example": "deno run -A src/main.ts examples/hello_world -o hello_world.exe",
+    "install": "deno install -A -n occ src/main.ts"
+  },
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true
+  }
+}

@@ -1,0 +1,22 @@
+// null_example.oc - Pointers can be null; null checks
+import("../lib/stdlib.oc", [process]);
+
+function main(): int {
+  let x: ptr<int>;
+  if (x == null) {
+    process.write(1, "x is null (uninitialized ptr)\n");
+  }
+
+  const n: int = 42;
+  const p: ptr<int> = @n;
+  if (p != null) {
+    process.write(1, `p points to: ${*p}\n`);
+  }
+
+  const q: ptr<int> = null;
+  if (q == null) {
+    process.write(1, "q is null\n");
+  }
+
+  return 0;
+}

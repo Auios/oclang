@@ -1,0 +1,51 @@
+// operators_example.oc - Demonstrates all implemented operators
+import("../lib/stdlib.oc", [process]);
+
+function main(): int {
+  // Equality and inequality
+  const a: int = 5;
+  const b: int = 10;
+  const eq: int = a == b;   // 0 (false)
+  const ne: int = a != b;   // 1 (true)
+  process.write(1, `eq 5==10: ${eq}, ne 5!=10: ${ne}\n`);
+
+  // Comparison
+  const lt: int = a < b;    // 1 (true)
+  const gt: int = a > b;    // 0 (false)
+  const le: int = a <= 5;   // 1 (true)
+  const ge: int = b >= 10;  // 1 (true)
+  process.write(1, `5<10: ${lt}, 5>10: ${gt}, 5<=5: ${le}, 10>=10: ${ge}\n`);
+
+  // Logical
+  const andTrue: int = (1 != 0) && (2 != 0);   // 1
+  const andFalse: int = (1 != 0) && (0 != 0);  // 0
+  const orTrue: int = (0 != 0) || (1 != 0);    // 1
+  const orFalse: int = (0 != 0) || (0 != 0);   // 0
+  const notZero: int = !0;   // 1
+  const notOne: int = !1;    // 0
+  process.write(1, `&&: ${andTrue}/${andFalse}, ||: ${orTrue}/${orFalse}, !: ${notZero}/${notOne}\n`);
+
+  // Compound assignment
+  let x: int = 10;
+  x += 5;
+  process.write(1, `x+=5: ${x}\n`);
+  x -= 3;
+  process.write(1, `x-=3: ${x}\n`);
+  x *= 2;
+  process.write(1, `x*=2: ${x}\n`);
+  x /= 4;
+  process.write(1, `x/=4: ${x}\n`);
+
+  // Increment and decrement
+  let i: int = 0;
+  i++;
+  process.write(1, `i++: ${i}\n`);
+  i--;
+  process.write(1, `i--: ${i}\n`);
+  const pre: int = ++i;
+  process.write(1, `++i returns: ${pre}\n`);
+  const post: int = i++;
+  process.write(1, `i++ returns: ${post}, i now: ${i}\n`);
+
+  return 0;
+}

@@ -1,0 +1,54 @@
+// types_example.oc - All implemented types with sizeof and usage
+import("../lib/stdlib.oc", [process]);
+
+type Point {
+  x: int;
+  y: int;
+}
+
+function main(): int {
+  process.write(1, "Implemented types and sizes:\n");
+
+  const i: int = 42;
+  process.write(1, `  int: sizeof=${sizeof(int)}, value=${i}\n`);
+
+  const u: uint = 100;
+  process.write(1, `  uint: sizeof=${sizeof(uint)}, value=${u}\n`);
+
+  const b: byte = 127;
+  process.write(1, `  byte: sizeof=${sizeof(byte)}, value=${b}\n`);
+
+  const ub: ubyte = 255;
+  process.write(1, `  ubyte: sizeof=${sizeof(ubyte)}, value=${ub}\n`);
+
+  const s: short = 1000;
+  process.write(1, `  short: sizeof=${sizeof(short)}, value=${s}\n`);
+
+  const us: ushort = 1000;
+  process.write(1, `  ushort: sizeof=${sizeof(ushort)}, value=${us}\n`);
+
+  const l: long = 999999;
+  process.write(1, `  long: sizeof=${sizeof(long)}, value=${l}\n`);
+
+  const ul: ulong = 999999;
+  process.write(1, `  ulong: sizeof=${sizeof(ulong)}, value=${ul}\n`);
+
+  const f: single = 3.14;
+  process.write(1, `  single: sizeof=${sizeof(single)}, value=${f}\n`);
+
+  const d: double = 2.718;
+  process.write(1, `  double: sizeof=${sizeof(double)}, value=${d}\n`);
+
+  const p: ptr<int> = @i;
+  process.write(1, `  ptr<int>: sizeof=${sizeof(ptr<int>)}, deref=${*p}\n`);
+
+  const arr: int[3] = [1, 2, 3];
+  process.write(1, `  int[3]: sizeof=${sizeof(int[3])}, arr[1]=${arr[1]}\n`);
+
+  const pts: Point = { x: 10, y: 20 };
+  process.write(1, `  Point: sizeof=${sizeof(Point)}, x=${pts.x}, y=${pts.y}\n`);
+
+  process.write(1, "void: return type only (no variable)\n");
+
+  return 0;
+}

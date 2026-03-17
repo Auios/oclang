@@ -1,0 +1,13 @@
+// Inline assembly example - write raw asm into function body
+// Use ; or // for comments in asm blocks
+import("../lib/stdlib.oc", [process]);
+
+function main(): int {
+  process.write(1, "Hello from inline asm!\n");
+  __asm {
+    sub rsp, 32 // shadow space for x64 call
+    mov ecx, 0
+    call ExitProcess
+  }
+  return 0;
+}

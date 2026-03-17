@@ -1,0 +1,31 @@
+// sizeof_example.oc - Proves base datatype sizes match expectations
+import("../lib/stdlib.oc", [process]);
+
+function main(): int {
+  process.write(1, "Base datatype sizes (bytes):\n");
+
+  const x: int = 0;
+  process.write(1, `  sizeof(int) = ${sizeof(int)}\n`);
+  process.write(1, `  sizeof(x) = ${sizeof(x)}\n`);
+
+  const p: ptr<int> = @x;
+  process.write(1, `  sizeof(ptr<int>) = ${sizeof(ptr<int>)}\n`);
+  process.write(1, `  sizeof(p) = ${sizeof(p)}\n`);
+
+  const arr: int[5] = [1, 2, 3, 4, 5];
+  process.write(1, `  sizeof(int[5]) = ${sizeof(int[5])}\n`);
+  process.write(1, `  sizeof(arr) = ${sizeof(arr)}\n`);
+
+  const nums: int[] = [1, 2, 3];
+  process.write(1, `  sizeof(int[]) = ${sizeof(int[])}\n`);
+  process.write(1, `  sizeof(nums) = ${sizeof(nums)}\n`);
+
+  process.write(1, `  sizeof(ubyte) = ${sizeof(ubyte)}\n`);
+  process.write(1, `  sizeof(byte) = ${sizeof(byte)}, sizeof(short) = ${sizeof(short)}\n`);
+  process.write(1, `  sizeof(uint) = ${sizeof(uint)}, sizeof(long) = ${sizeof(long)}\n`);
+  process.write(1, `  sizeof(single) = ${sizeof(single)}, sizeof(double) = ${sizeof(double)}\n`);
+
+  process.write(1, "\nExpected: int=4, ptr=8, int[5]=20, int[]=8, ubyte=1, byte=1, short=2, uint=4, long=8\n");
+
+  return 0;
+}

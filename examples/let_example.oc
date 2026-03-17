@@ -1,0 +1,23 @@
+// let_example.oc - Demonstrates mutable variables with let
+import("../lib/stdlib.oc", [process]);
+
+function main(): int {
+  let x: int = 0;
+  process.write(1, `x = ${x}\n`);
+
+  x = 10;
+  process.write(1, `after x = 10: ${x}\n`);
+
+  x += 5;
+  process.write(1, `after x += 5: ${x}\n`);
+
+  x -= 3;
+  process.write(1, `after x -= 3: ${x}\n`);
+
+  let counter: int = 0;
+  counter++;
+  counter++;
+  process.write(1, `counter after two ++: ${counter}\n`);
+
+  return 0;
+}

@@ -1,0 +1,20 @@
+// Array examples
+// T[] = variable-length
+// T[N] = fixed-length, N elements known at compile time
+import("../lib/stdlib.oc", [process]);
+
+function getNumbers(): int[] {
+  return [10, 20, 30, 40, 50, 52];
+}
+
+function main(): int {
+  // Variable-length
+  const numbers: int[] = getNumbers();
+  process.write(1, `Variable-length, first: ${numbers[0]}, length: ${numbers.length}\n`);
+
+  // Fixed-length
+  const buffer: int[5] = [1, 2, 3, 4, 5];
+  process.write(1, `Fixed-length, third: ${buffer[2]}, length: ${buffer.length}\n`);
+
+  return 0;
+}

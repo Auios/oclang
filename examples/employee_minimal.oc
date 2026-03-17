@@ -1,0 +1,22 @@
+// Minimal employee test - custom types, pass-by-sharing
+import("../lib/stdlib.oc", [process]);
+
+type Employee {
+  id: int;
+  age: int;
+  salary: int;
+}
+
+function promote(emp: Employee, raise: int): void {
+  emp.salary = emp.salary + raise;
+}
+
+function main(): int {
+  let alice: Employee = { id: 1, age: 30, salary: 50000 };
+
+  process.write(1, `Alice salary: ${alice.salary}\n`);
+  promote(alice, 5000);
+  process.write(1, `After promote: ${alice.salary}\n`);
+
+  return 0;
+}

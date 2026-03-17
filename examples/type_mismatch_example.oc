@@ -1,0 +1,34 @@
+// type_mismatch_example.oc - Should FAIL at oclang compile: mixing incompatible types
+// expect: compile-fail
+// Each line demonstrates a type error. The compiler should reject these with clear
+// error messages instead of generating invalid assembly.
+import("../lib/stdlib.oc", [process]);
+
+function main(): int {
+  const n: int = 42;
+  const p: ptr<int> = @n;
+  const arr: int[] = [1, 2, 3];
+
+  // ERROR: int + ptr - cannot add pointer and integer without explicit cast
+  const bad1: int = n + p;
+
+  // ERROR: ptr + ptr - cannot add two pointers
+  const bad2: int = p + p;
+
+  // ERROR: assigning ptr to int variable
+  const bad3: int = p;
+
+  // ERROR: assigning int to ptr variable
+  const bad4: ptr<int> = n;
+
+  // ERROR: array + int - wrong operand types for +
+  const bad5: int = arr + n;
+
+  // ERROR: comparing ptr with int using ==
+  const bad6: int = (p == n);
+
+  // ERROR: dereferencing non-pointer (int)
+  const bad7: int = *n;
+
+  return 0;
+}

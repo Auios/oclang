@@ -1,0 +1,10 @@
+# Deno
+deno.lock
+
+# Build output
+*.exe
+*.o
+*.obj
+*.out
+*.asm
+hello_world.exe

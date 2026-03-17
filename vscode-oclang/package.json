@@ -1,0 +1,63 @@
+{
+  "name": "oclang",
+  "displayName": "O'Connor Language (oclang)",
+  "description": "Syntax highlighting and IntelliSense for oclang",
+  "version": "0.2.0",
+  "publisher": "oclang",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "main": "./client/out/extension.js",
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "oclang",
+    "oconnor",
+    "language",
+    "syntax",
+    "intellisense"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/oclang"
+  },
+  "scripts": {
+    "compile": "tsc -b",
+    "watch": "tsc -b -w",
+    "vscode:prepublish": "npm run compile"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-textdocument": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "oclang",
+        "aliases": [
+          "oclang",
+          "OC"
+        ],
+        "extensions": [
+          ".oc"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "oclang",
+        "scopeName": "source.oc",
+        "path": "./syntaxes/oclang.tmLanguage.json"
+      }
+    ]
+  }
+}

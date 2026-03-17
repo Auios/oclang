@@ -1,0 +1,12 @@
+import("../lib/stdlib.oc", [process]);
+
+function add(a: int, b: int): int {
+  return a + b;
+}
+
+function main(): int {
+  const sum: int = add(2, 3);
+  process.write(1, "Two plus three is: ");
+  process.write(1, sum);
+  return 0;
+}

@@ -1,0 +1,22 @@
+// Module example: define and use modules in the same file
+import("../lib/stdlib.oc", [process, os]);
+
+module process {
+  const stdout: int = 1;
+  function exit(code: int): int {
+    return 0;
+  }
+}
+
+module os {
+  function cpuCount(): int {
+    return 0;
+  }
+}
+
+function main(): int {
+  process.write(1, `process.stdout: ${process.stdout}\n`);
+  const n: int = os.cpuCount();
+  process.write(1, `os.cpuCount(): ${n}\n`);
+  return 0;
+}

@@ -1,0 +1,24 @@
+// Stress test: 17 interpolations in one template (no artificial limit)
+import("../lib/stdlib.oc", [process]);
+
+function main(): int {
+  const a: int = 1;
+  const b: int = 2;
+  const c: int = 3;
+  const d: int = 4;
+  const e: int = 5;
+  const f: int = 6;
+  const g: int = 7;
+  const h: int = 8;
+  const i: int = 9;
+  const j: int = 10;
+  const k: int = 11;
+  const l: int = 12;
+  const m: int = 13;
+  const n: int = 14;
+  const o: int = 15;
+  const p: int = 16;
+  const q: int = 17;
+  process.write(1, `${a}${b}${c}${d}${e}${f}${g}${h}${i}${j}${k}${l}${m}${n}${o}${p}${q}\n`);
+  return 0;
+}

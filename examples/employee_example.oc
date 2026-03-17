@@ -1,0 +1,38 @@
+// employee_example.oc - Custom types with pass-by-sharing (like Node.js)
+import("../lib/stdlib.oc", [process]);
+
+type Employee {
+  id: int;
+  age: int;
+  salary: int;
+}
+
+function promote(emp: Employee, raise: int): void {
+  emp.salary = emp.salary + raise;
+}
+
+function tryReplace(emp: Employee): void {
+  emp = { id: 99, age: 99, salary: 99 };
+}
+
+function main(): int {
+  let alice: Employee = { id: 1, age: 30, salary: 50000 };
+  let bob: Employee = { id: 2, age: 25, salary: 45000 };
+
+  process.write(1, `Alice: id=${alice.id}, age=${alice.age}, salary=${alice.salary}\n`);
+  process.write(1, `Bob: id=${bob.id}, age=${bob.age}, salary=${bob.salary}\n`);
+
+  promote(alice, 5000);
+  process.write(1, `After promote(alice, 5000): salary=${alice.salary}\n`);
+
+  tryReplace(alice);
+  process.write(1, `After tryReplace(alice): id=${alice.id} (unchanged - pass by sharing)\n`);
+
+  bob = alice;
+  process.write(1, `After bob=alice: bob.id=${bob.id}, alice.id=${alice.id}\n`);
+
+  bob.age = 26;
+  process.write(1, `After bob.age=26: alice.age=${alice.age} (shared object)\n`);
+
+  return 0;
+}

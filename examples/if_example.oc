@@ -1,0 +1,24 @@
+// if_example.oc - Demonstrates if/else conditional branching
+import("../lib/stdlib.oc", [process]);
+
+function main(): int {
+  let x: int = 10;
+
+  if (x > 0) {
+    process.write(1, "x is positive\n");
+  }
+
+  if (x > 20) {
+    process.write(1, "x is greater than 20\n");
+  } else {
+    process.write(1, "x is not greater than 20\n");
+  }
+
+  if (x == 10) {
+    process.write(1, "x is exactly 10\n");
+  } else {
+    process.write(1, "x is not 10\n");
+  }
+
+  return 0;
+}

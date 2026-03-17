@@ -1,0 +1,11 @@
+// ptr<int> = pointer to int, 8 bytes on x64
+// @x = address-of, *p = dereference
+import("../lib/stdlib.oc", [process]);
+
+function main(): int {
+  const x: int = 42;
+  const p: ptr<int> = @x;
+  process.write(1, `Address of x: ${p}\n`);
+  process.write(1, `Value of x: ${*p}\n`);
+  return 0;
+}

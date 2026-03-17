@@ -1,0 +1,7 @@
+import("../lib/stdlib.oc", [process]);
+
+function main(): int {
+  process.write(1, "Normal output\n");
+  process.write(1, "Debug output\n");
+  return 0;
+}

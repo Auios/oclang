@@ -1,0 +1,21 @@
+// boolean_example.oc - Demonstrates boolean literals true and false
+import("../lib/stdlib.oc", [process]);
+
+function main(): int {
+  const t: int = true;
+  const f: int = false;
+  process.write(1, `true = ${t}, false = ${f}\n`);
+
+  if (true) {
+    process.write(1, "true branch\n");
+  }
+  if (!false) {
+    process.write(1, "!false branch\n");
+  }
+
+  const andResult: int = true && true;
+  const orResult: int = false || true;
+  process.write(1, `true && true = ${andResult}, false || true = ${orResult}\n`);
+
+  return 0;
+}

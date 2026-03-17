@@ -1,0 +1,14 @@
+// for_example.oc - Demonstrates for loop
+import("../lib/stdlib.oc", [process]);
+
+function main(): int {
+  process.write(1, "Count 0 to 4:\n");
+
+  for (let i: int = 0; i < 5; i++) {
+    process.write(1, `  ${i}\n`);
+  }
+
+  process.write(1, "Done.\n");
+
+  return 0;
+}

@@ -1,0 +1,52 @@
+// enum_example.oc - Enums with optional underlying type
+import("../lib/stdlib.oc", [process]);
+
+// Auto-incrementing from 0: North=0, South=1, East=2, West=3
+enum Direction {
+  North,
+  South,
+  East,
+  West,
+}
+
+// Explicit values (HTTP status codes)
+enum HttpStatus {
+  Ok = 200,
+  Created = 201,
+  BadRequest = 400,
+  NotFound = 404,
+  InternalError = 500,
+}
+
+
+
+// Explicit underlying type: 1 byte per value (ubyte)
+enum SmallFlags: ubyte {
+  Read = 1,
+  Write = 2,
+  Execute = 4,
+}
+
+const flags = SmallFlags.Read;
+
+function main(): int {
+  const d: int = Direction.North;
+  process.write(1, `Direction.North = ${d}\n`);
+
+  if (d == Direction.North) {
+    process.write(1, "Facing north\n");
+  }
+
+  const s: int = HttpStatus.Ok;
+  process.write(1, `HttpStatus.Ok = ${s}\n`);
+
+  let dir: int = Direction.East;
+  process.write(1, `dir (East) = ${dir}\n`);
+
+  const flags: int = SmallFlags.Read;
+  process.write(1, `SmallFlags.Read = ${flags}\n`);
+
+  return 0;
+}'
+
+Smal

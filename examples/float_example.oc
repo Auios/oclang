@@ -1,0 +1,24 @@
+// float_example.oc - Demonstrates single and double float types
+import("../lib/stdlib.oc", [process]);
+
+function main(): int {
+  const pi: double = 3.14159;
+  const two: double = 2.0;
+  const sum: double = pi + two;
+  process.write(1, `pi + 2 = ${sum}\n`);
+
+  let x: single = 1.5;
+  let y: single = 2.5;
+  const product: single = x * y;
+  process.write(1, `1.5 * 2.5 = ${product}\n`);
+
+  const a: double = 10.0;
+  const b: double = 3.0;
+  const quotient: double = a / b;
+  process.write(1, `10 / 3 = ${quotient}\n`);
+
+  const diff: double = 5.5 - 1.5;
+  process.write(1, `5.5 - 1.5 = ${diff}\n`);
+
+  return 0;
+}
