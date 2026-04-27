@@ -29,8 +29,10 @@ Syntax highlighting and IntelliSense for the oclang programming language.
 cd vscode-oclang
 npm install -g @vscode/vsce
 vsce package
-code --install-extension oclang-0.1.0.vsix
+code --install-extension oclang-0.2.0.vsix
 ```
+
+The `.vsix` name is `oclang-<version>.vsix`, where `<version>` is the `version` field in this folder’s `package.json`.
 
 ## Scope Support
 
